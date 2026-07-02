@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eaf5fe"/>
+      <stop offset="0.55" stop-color="#f4faff"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+    <radialGradient id="blobA" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#0d93ec" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#0d93ec" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="blobB" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#23cfc4" stop-opacity="0.20"/>
+      <stop offset="1" stop-color="#23cfc4" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" width="34" height="34" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="2" fill="#0d93ec" fill-opacity="0.06"/>
+    </pattern>
+  </defs>
+
+  <rect width="1440" height="900" fill="url(#sky)"/>
+  <rect width="1440" height="900" fill="url(#dots)"/>
+
+  <circle cx="1180" cy="180" r="520" fill="url(#blobA)"/>
+  <circle cx="240" cy="760" r="460" fill="url(#blobB)"/>
+  <circle cx="1320" cy="720" r="300" fill="url(#blobB)"/>
+
+  <!-- soft shield/droplet watermark -->
+  <g opacity="0.5" transform="translate(1010 250)">
+    <path d="M180 0 L360 66 V210 C360 330 285 405 180 456 C75 405 0 330 0 210 V66 Z"
+          fill="#0d93ec" fill-opacity="0.06"/>
+  </g>
+</svg>

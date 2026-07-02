@@ -1,0 +1,13 @@
+{
+  "name": "Disinfex — Дезинфекция в Ташкенте",
+  "short_name": "Disinfex",
+  "description": "Дезинсекция, дератизация и дезинфекция в Ташкенте. Тараканы, клопы, грызуны. Гарантия 1 год.",
+  "lang": "ru",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0d93ec",
+  "icons": [
+    { "src": "/assets/img/favicon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
