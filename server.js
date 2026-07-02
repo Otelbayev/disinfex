@@ -200,10 +200,6 @@ const server = http.createServer((req, res) => {
   res.writeHead(405).end("Method Not Allowed");
 });
 
-server.get("/check", (req, res) => {
-  res.send("Hello");
-});
-
 server.listen(PORT, () => {
   console.log(`\n  DisinfeX running →  http://localhost:${PORT}\n`);
 });

@@ -2,7 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "echo 'static site, no build step'",
   "outputDirectory": "public",
-  "cleanUrls": true,
   "headers": [
     {
       "source": "/assets/(.*)",
