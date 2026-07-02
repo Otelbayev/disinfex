@@ -200,7 +200,7 @@ const server = http.createServer((req, res) => {
   res.writeHead(405).end("Method Not Allowed");
 });
 
-server.get("/", (req, res) => {
+server.get("/check", (req, res) => {
   res.send("Hello");
 });
 
