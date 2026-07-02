@@ -23,7 +23,10 @@ const path = require("path");
     const i = line.indexOf("=");
     if (i === -1) continue;
     const key = line.slice(0, i).trim();
-    let val = line.slice(i + 1).trim().replace(/^['"]|['"]$/g, "");
+    let val = line
+      .slice(i + 1)
+      .trim()
+      .replace(/^['"]|['"]$/g, "");
     if (!(key in process.env)) process.env[key] = val;
   }
 })();
@@ -34,7 +37,9 @@ const CHAT_ID = process.env.TELEGRAM_CHAT_ID || "";
 const PUBLIC_DIR = path.join(__dirname, "public");
 
 if (!BOT_TOKEN || !CHAT_ID) {
-  console.warn("[WARN] TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID not set — leads will fail. Copy .env.example to .env and fill them in.");
+  console.warn(
+    "[WARN] TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID not set — leads will fail. Copy .env.example to .env and fill them in.",
+  );
 }
 
 const MIME = {
@@ -51,16 +56,20 @@ const MIME = {
   ".xml": "application/xml; charset=utf-8",
   ".txt": "text/plain; charset=utf-8",
   ".webmanifest": "application/manifest+json; charset=utf-8",
-  ".json": "application/json; charset=utf-8"
+  ".json": "application/json; charset=utf-8",
 };
 
 /* ---- Simple per-IP rate limit (anti-spam) ---- */
 const hits = new Map();
 function rateLimited(ip) {
   const now = Date.now();
-  const win = 60_000, max = 8;
+  const win = 60_000,
+    max = 8;
   const rec = hits.get(ip) || { c: 0, t: now };
-  if (now - rec.t > win) { rec.c = 0; rec.t = now; }
+  if (now - rec.t > win) {
+    rec.c = 0;
+    rec.t = now;
+  }
   rec.c++;
   hits.set(ip, rec);
   return rec.c > max;
@@ -68,7 +77,9 @@ function rateLimited(ip) {
 
 function esc(s) {
   return String(s == null ? "" : s)
-    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
 
 function buildMessage(d) {
@@ -83,7 +94,7 @@ function buildMessage(d) {
     d.comment ? `💬 <b>Комментарий:</b> ${esc(d.comment)}` : "",
     "",
     `🌐 <b>Язык:</b> ${esc(d.lang)}`,
-    `🕒 ${new Date().toLocaleString("ru-RU", { timeZone: "Asia/Tashkent" })}`
+    `🕒 ${new Date().toLocaleString("ru-RU", { timeZone: "Asia/Tashkent" })}`,
   ];
   return lines.filter(Boolean).join("\n");
 }
@@ -93,7 +104,12 @@ async function sendToTelegram(text) {
   const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: CHAT_ID, text, parse_mode: "HTML", disable_web_page_preview: true })
+    body: JSON.stringify({
+      chat_id: CHAT_ID,
+      text,
+      parse_mode: "HTML",
+      disable_web_page_preview: true,
+    }),
   });
   if (!res.ok) {
     const body = await res.text().catch(() => "");
@@ -103,11 +119,14 @@ async function sendToTelegram(text) {
 
 /* ---- Static file serving ---- */
 function serveStatic(req, res) {
-  let urlPath = decodeURIComponent((req.url.split("?")[0]) || "/");
+  let urlPath = decodeURIComponent(req.url.split("?")[0] || "/");
   if (urlPath === "/") urlPath = "/index.html";
 
   const filePath = path.normalize(path.join(PUBLIC_DIR, urlPath));
-  if (!filePath.startsWith(PUBLIC_DIR)) { res.writeHead(403).end("Forbidden"); return; }
+  if (!filePath.startsWith(PUBLIC_DIR)) {
+    res.writeHead(403).end("Forbidden");
+    return;
+  }
 
   fs.readFile(filePath, (err, data) => {
     if (err) {
@@ -130,7 +149,13 @@ function serveStatic(req, res) {
 /* ---- Server ---- */
 const server = http.createServer((req, res) => {
   if (req.method === "POST" && req.url === "/api/lead") {
-    const ip = (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "?").split(",")[0].trim();
+    const ip = (
+      req.headers["x-forwarded-for"] ||
+      req.socket.remoteAddress ||
+      "?"
+    )
+      .split(",")[0]
+      .trim();
 
     if (rateLimited(ip)) {
       res.writeHead(429, { "Content-Type": "application/json" });
@@ -142,7 +167,10 @@ const server = http.createServer((req, res) => {
     let tooBig = false;
     req.on("data", (chunk) => {
       body += chunk;
-      if (body.length > 8_000) { tooBig = true; req.destroy(); }
+      if (body.length > 8_000) {
+        tooBig = true;
+        req.destroy();
+      }
     });
     req.on("end", async () => {
       if (tooBig) return;
@@ -164,9 +192,16 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  if (req.method === "GET" || req.method === "HEAD") { serveStatic(req, res); return; }
+  if (req.method === "GET" || req.method === "HEAD") {
+    serveStatic(req, res);
+    return;
+  }
 
   res.writeHead(405).end("Method Not Allowed");
+});
+
+server.get("/", (req, res) => {
+  res.send("Hello");
 });
 
 server.listen(PORT, () => {
