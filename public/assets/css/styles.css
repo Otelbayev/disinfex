@@ -358,6 +358,114 @@ select.input-block { appearance: none;
   .hero-mark, .fab { animation: none; }
 }
 
+/* ===================================================================
+   3D + PHOTO ENHANCEMENTS
+   =================================================================== */
+
+/* ---------- Generic 3D tilt wrapper (transform set inline by JS) ---------- */
+[data-tilt] {
+  transform-style: preserve-3d;
+  transition: transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .3s ease;
+  will-change: transform;
+}
+[data-tilt].tilting { transition: box-shadow .3s ease; }
+/* Resting 3D pose for the hero scene (JS overrides on pointer move) */
+.hero-scene { transform: perspective(1000px) rotateX(3deg) rotateY(-11deg) translateY(var(--py, 0px)); }
+
+/* ---------- Hero 3D photo scene ---------- */
+.hero-scene {
+  position: relative;
+  width: min(460px, 92%);
+  aspect-ratio: 5 / 5;
+  margin-inline: auto;
+}
+.hero-glow {
+  position: absolute; inset: 6% 6% 10% 6%; z-index: 0;
+  background: radial-gradient(60% 60% at 60% 40%, rgba(13,147,236,.45), transparent 70%);
+  filter: blur(34px); transform: translateZ(-40px);
+}
+.hero-photo {
+  position: absolute; overflow: hidden;
+  border-radius: 22px; border: 4px solid #fff;
+  box-shadow: 0 30px 60px rgba(12,34,51,.28);
+  transform: translateZ(var(--z, 40px));
+}
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+.hero-photo-main { inset: 4% 0 auto 2%; width: 78%; aspect-ratio: 16/12; z-index: 1; }
+.hero-photo-sub  { right: 0; bottom: 4%; width: 56%; aspect-ratio: 16/10; z-index: 2; }
+
+.hero-chip {
+  position: absolute; z-index: 3;
+  display: inline-flex; align-items: center; gap: 9px;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--line); border-radius: 16px;
+  padding: 10px 14px; box-shadow: var(--shadow);
+  transform: translateZ(var(--z, 80px));
+}
+.hero-chip strong { font-size: 18px; font-weight: 800; color: var(--navy); line-height: 1; }
+.hero-chip small { display: block; font-size: 12px; color: var(--ink-2); }
+.hero-chip-rating { top: -5%; right: 13%; animation: floaty 5.5s ease-in-out infinite; }
+.hero-chip-rating .chip-stars { color: #f5a623; font-size: 13px; letter-spacing: 1px; }
+.hero-chip-guarantee { bottom: 0; left: 0; gap: 10px; animation: floaty 7s ease-in-out infinite reverse; }
+.hero-chip-guarantee img { width: 30px; height: 30px; }
+
+/* ---------- Service cards with photos ---------- */
+.card { padding: 0; overflow: hidden; }
+.card-media { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--bg-tint); }
+.card-photo {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .5s cubic-bezier(.22,.61,.36,1);
+}
+.card:hover .card-photo { transform: scale(1.07); }
+.card-media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(12,34,51,.35));
+}
+.card .card-ico {
+  position: absolute; left: 16px; bottom: -22px; z-index: 2;
+  width: 60px; height: 60px; border-radius: 16px; margin: 0;
+  border: 3px solid #fff; box-shadow: var(--shadow-sm);
+  transform: translateZ(30px);
+}
+.card-body { padding: var(--sp-32) var(--sp-24) var(--sp-24); }
+
+/* ---------- Gallery ---------- */
+.gallery {
+  display: grid; gap: var(--sp-16);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 680px) {
+  .gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
+  .shot-lg { grid-row: span 2; }
+  .shot-wide { grid-column: span 2; }
+}
+@media (min-width: 980px) {
+  .gallery { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 190px; }
+  .shot-lg { grid-column: span 1; grid-row: span 2; }
+  .shot-wide { grid-column: span 2; grid-row: span 1; }
+}
+.shot {
+  position: relative; overflow: hidden; border-radius: var(--radius);
+  box-shadow: var(--shadow-sm); min-height: 220px; margin: 0;
+  border: 1px solid var(--line);
+}
+.shot img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .6s cubic-bezier(.22,.61,.36,1);
+}
+.shot::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(12,34,51,.72));
+  opacity: .85; transition: opacity .3s ease;
+}
+.shot:hover img { transform: scale(1.08); }
+.shot figcaption {
+  position: absolute; left: 0; bottom: 0; z-index: 2;
+  padding: 16px 18px; color: #fff; font-weight: 700; font-size: 16px;
+  transform: translateZ(30px);
+}
+
 /* ---------- Desktop layout ---------- */
 @media (min-width: 900px) {
   .nav-links { display: flex; }
@@ -368,4 +476,10 @@ select.input-block { appearance: none;
   .hero-form { margin-inline: 0; }
   .hero-badges { justify-content: flex-start; }
   .hero-art { display: block; }
+}
+
+/* ---------- Reduced motion / touch ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .hero-chip-rating, .hero-chip-guarantee { animation: none; }
+  [data-tilt], .card-photo, .shot img { transition: none; }
 }

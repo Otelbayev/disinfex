@@ -142,6 +142,7 @@
         <a href="#services" class="nav-link" data-i18n="nav.services">Услуги</a>
         <a href="#why" class="nav-link" data-i18n="nav.why">Почему мы</a>
         <a href="#how" class="nav-link" data-i18n="nav.how">Как работаем</a>
+        <a href="#gallery" class="nav-link" data-i18n="nav.gallery">Работы</a>
         <a href="#prices" class="nav-link" data-i18n="nav.prices">Цены</a>
         <a href="#faq" class="nav-link" data-i18n="nav.faq">Вопросы</a>
         <a href="#reviews" class="nav-link" data-i18n="nav.reviews">Отзывы</a>
@@ -186,7 +187,23 @@
       </div>
 
       <div class="hero-art reveal" aria-hidden="true">
-        <img src="./assets/img/mark-color.png" alt="" width="360" height="360" class="hero-mark" loading="lazy" decoding="async" />
+        <div class="hero-scene" data-tilt="9">
+          <figure class="hero-photo hero-photo-main" style="--z:60px">
+            <img src="./assets/img/photos/dezinfeksiya.webp" alt="" width="640" height="534" loading="eager" decoding="async" />
+          </figure>
+          <figure class="hero-photo hero-photo-sub" style="--z:120px">
+            <img src="./assets/img/photos/home.webp" alt="" width="420" height="222" loading="lazy" decoding="async" />
+          </figure>
+          <div class="hero-chip hero-chip-rating" style="--z:150px">
+            <span class="chip-stars">★★★★★</span>
+            <strong>4.9</strong><small>428+</small>
+          </div>
+          <div class="hero-chip hero-chip-guarantee" style="--z:180px">
+            <img src="./assets/img/mark-color.png" alt="" width="30" height="30" loading="lazy" decoding="async" />
+            <div><strong>1 год</strong><small data-i18n="hero.b3">гарантии</small></div>
+          </div>
+          <span class="hero-glow" aria-hidden="true"></span>
+        </div>
       </div>
     </div>
   </section>
@@ -201,38 +218,53 @@
       </div>
 
       <div class="cards">
-        <article class="card reveal">
-          <img class="card-ico" src="./assets/img/icons/tile-dezinseksiya.png" alt="" width="72" height="72"  loading="lazy" decoding="async" />
-          <h3 class="card-title" data-i18n="svc.ins.t">Дезинсекция</h3>
-          <p class="card-text" data-i18n="svc.ins.d">Уничтожение насекомых: тараканы, клопы, муравьи, блохи, комары и мухи. Гелевая и барьерная обработка, горячий туман.</p>
-          <ul class="card-tags">
-            <li data-i18n="svc.ins.1">Тараканы</li>
-            <li data-i18n="svc.ins.2">Клопы</li>
-            <li data-i18n="svc.ins.3">Муравьи</li>
-            <li data-i18n="svc.ins.4">Комары</li>
-          </ul>
+        <article class="card reveal" data-tilt="6">
+          <div class="card-media">
+            <img class="card-photo" src="./assets/img/photos/dezinseksiya.webp" alt="Дезинсекция — обработка от тараканов и клопов" width="640" height="343" loading="lazy" decoding="async" />
+            <img class="card-ico" src="./assets/img/icons/tile-dezinseksiya.png" alt="" width="72" height="72" loading="lazy" decoding="async" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title" data-i18n="svc.ins.t">Дезинсекция</h3>
+            <p class="card-text" data-i18n="svc.ins.d">Уничтожение насекомых: тараканы, клопы, муравьи, блохи, комары и мухи. Гелевая и барьерная обработка, горячий туман.</p>
+            <ul class="card-tags">
+              <li data-i18n="svc.ins.1">Тараканы</li>
+              <li data-i18n="svc.ins.2">Клопы</li>
+              <li data-i18n="svc.ins.3">Муравьи</li>
+              <li data-i18n="svc.ins.4">Комары</li>
+            </ul>
+          </div>
         </article>
 
-        <article class="card reveal">
-          <img class="card-ico" src="./assets/img/icons/tile-deratizatsiya.png" alt="" width="72" height="72"  loading="lazy" decoding="async" />
-          <h3 class="card-title" data-i18n="svc.rod.t">Дератизация</h3>
-          <p class="card-text" data-i18n="svc.rod.d">Борьба с грызунами: мыши и крысы. Безопасные приманки, установка контрольных точек и защита от повторного проникновения.</p>
-          <ul class="card-tags">
-            <li data-i18n="svc.rod.1">Мыши</li>
-            <li data-i18n="svc.rod.2">Крысы</li>
-            <li data-i18n="svc.rod.3">Профилактика</li>
-          </ul>
+        <article class="card reveal" data-tilt="6">
+          <div class="card-media">
+            <img class="card-photo" src="./assets/img/photos/home.webp" alt="Дератизация — защита дома от грызунов" width="640" height="338" loading="lazy" decoding="async" />
+            <img class="card-ico" src="./assets/img/icons/tile-deratizatsiya.png" alt="" width="72" height="72" loading="lazy" decoding="async" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title" data-i18n="svc.rod.t">Дератизация</h3>
+            <p class="card-text" data-i18n="svc.rod.d">Борьба с грызунами: мыши и крысы. Безопасные приманки, установка контрольных точек и защита от повторного проникновения.</p>
+            <ul class="card-tags">
+              <li data-i18n="svc.rod.1">Мыши</li>
+              <li data-i18n="svc.rod.2">Крысы</li>
+              <li data-i18n="svc.rod.3">Профилактика</li>
+            </ul>
+          </div>
         </article>
 
-        <article class="card reveal">
-          <img class="card-ico" src="./assets/img/icons/tile-dezinfeksiya.png" alt="" width="72" height="72"  loading="lazy" decoding="async" />
-          <h3 class="card-title" data-i18n="svc.dis.t">Дезинфекция</h3>
-          <p class="card-text" data-i18n="svc.dis.d">Уничтожение вирусов, бактерий, плесени и грибка. Для квартир, офисов, кафе и производств. С документами для СЭС.</p>
-          <ul class="card-tags">
-            <li data-i18n="svc.dis.1">Вирусы</li>
-            <li data-i18n="svc.dis.2">Бактерии</li>
-            <li data-i18n="svc.dis.3">Плесень</li>
-          </ul>
+        <article class="card reveal" data-tilt="6">
+          <div class="card-media">
+            <img class="card-photo" src="./assets/img/photos/office.webp" alt="Дезинфекция офисов и помещений" width="640" height="343" loading="lazy" decoding="async" />
+            <img class="card-ico" src="./assets/img/icons/tile-dezinfeksiya.png" alt="" width="72" height="72" loading="lazy" decoding="async" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title" data-i18n="svc.dis.t">Дезинфекция</h3>
+            <p class="card-text" data-i18n="svc.dis.d">Уничтожение вирусов, бактерий, плесени и грибка. Для квартир, офисов, кафе и производств. С документами для СЭС.</p>
+            <ul class="card-tags">
+              <li data-i18n="svc.dis.1">Вирусы</li>
+              <li data-i18n="svc.dis.2">Бактерии</li>
+              <li data-i18n="svc.dis.3">Плесень</li>
+            </ul>
+          </div>
         </article>
       </div>
     </div>
@@ -309,8 +341,37 @@
     </div>
   </section>
 
+  <!-- ============ GALLERY / OUR WORK ============ -->
+  <section class="section section-alt" id="gallery">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-kicker" data-i18n="gal.kicker">Наши работы</span>
+        <h2 class="section-title" data-i18n="gal.title">Disinfex в деле</h2>
+        <p class="section-lead" data-i18n="gal.lead">Реальные выезды по Ташкенту — квартиры, дома и офисы. Аккуратно, безопасно, с гарантией.</p>
+      </div>
+      <div class="gallery">
+        <figure class="shot shot-lg reveal" data-tilt="7">
+          <img src="./assets/img/photos/dezinfeksiya.webp" alt="Дезинфекция офиса в Ташкенте" width="640" height="534" loading="lazy" decoding="async" />
+          <figcaption><span data-i18n="gal.1">Обработка офиса</span></figcaption>
+        </figure>
+        <figure class="shot reveal" data-tilt="7">
+          <img src="./assets/img/photos/dezinseksiya.webp" alt="Уничтожение тараканов" width="640" height="343" loading="lazy" decoding="async" />
+          <figcaption><span data-i18n="gal.2">Тараканы и клопы</span></figcaption>
+        </figure>
+        <figure class="shot reveal" data-tilt="7">
+          <img src="./assets/img/photos/home.webp" alt="Дезинфекция квартиры" width="640" height="338" loading="lazy" decoding="async" />
+          <figcaption><span data-i18n="gal.3">Квартиры и дома</span></figcaption>
+        </figure>
+        <figure class="shot shot-wide reveal" data-tilt="7">
+          <img src="./assets/img/photos/office.webp" alt="Санобработка помещений" width="640" height="343" loading="lazy" decoding="async" />
+          <figcaption><span data-i18n="gal.4">Кафе, офисы, бизнес</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ PRICES / CALC FORM ============ -->
-  <section class="section section-alt" id="prices">
+  <section class="section" id="prices">
     <div class="container prices-grid">
       <div class="prices-copy reveal">
         <span class="section-kicker" data-i18n="prices.kicker">Расчёт</span>

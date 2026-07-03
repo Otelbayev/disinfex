@@ -10,7 +10,9 @@
   const I18N = {
     ru: {
       "meta.description": "Disinfex — служба дезинфекции №1 в Ташкенте. Уничтожение тараканов, клопов, муравьёв, грызунов. Дезинсекция, дератизация, дезинфекция. Гарантия 1 год, выезд за час, безопасно для детей и животных. ☎ +998 (90) 000-00-00",
-      "nav.services": "Услуги", "nav.why": "Почему мы", "nav.how": "Как работаем", "nav.prices": "Цены", "nav.faq": "Вопросы", "nav.reviews": "Отзывы", "nav.cta": "Оставить заявку",
+      "nav.services": "Услуги", "nav.why": "Почему мы", "nav.how": "Как работаем", "nav.gallery": "Работы", "nav.prices": "Цены", "nav.faq": "Вопросы", "nav.reviews": "Отзывы", "nav.cta": "Оставить заявку",
+      "gal.kicker": "Наши работы", "gal.title": "Disinfex в деле", "gal.lead": "Реальные выезды по Ташкенту — квартиры, дома и офисы. Аккуратно, безопасно, с гарантией.",
+      "gal.1": "Обработка офиса", "gal.2": "Тараканы и клопы", "gal.3": "Квартиры и дома", "gal.4": "Кафе, офисы, бизнес",
       "hero.eyebrow": "● Дезинфекция №1 в Ташкенте",
       "hero.title": "Избавим ваш дом от тараканов, клопов и грызунов",
       "hero.sub": "Профессиональная обработка с гарантией 1 год. Безопасно для детей и домашних животных. Выезд по Ташкенту в течение часа.",
@@ -68,7 +70,9 @@
     },
     uz: {
       "meta.description": "Disinfex — Toshkentda №1 dezinfeksiya xizmati. Tarakan, kandala (klop), chumoli, kemiruvchilarni yo‘qotish. Dezinseksiya, deratizatsiya, dezinfeksiya. 1 yil kafolat, bir soatda yetib boramiz, bolalar va hayvonlar uchun xavfsiz. ☎ +998 (90) 000-00-00",
-      "nav.services": "Xizmatlar", "nav.why": "Nega biz", "nav.how": "Qanday ishlaymiz", "nav.prices": "Narxlar", "nav.faq": "Savollar", "nav.reviews": "Sharhlar", "nav.cta": "Ariza qoldirish",
+      "nav.services": "Xizmatlar", "nav.why": "Nega biz", "nav.how": "Qanday ishlaymiz", "nav.gallery": "Ishlar", "nav.prices": "Narxlar", "nav.faq": "Savollar", "nav.reviews": "Sharhlar", "nav.cta": "Ariza qoldirish",
+      "gal.kicker": "Ishlarimiz", "gal.title": "Disinfex ish jarayonida", "gal.lead": "Toshkent bo‘ylab haqiqiy chiqishlar — kvartira, uy va ofislar. Ozoda, xavfsiz, kafolat bilan.",
+      "gal.1": "Ofisga ishlov", "gal.2": "Tarakan va kandala", "gal.3": "Kvartira va uylar", "gal.4": "Kafe, ofis, biznes",
       "hero.eyebrow": "● Toshkentda №1 dezinfeksiya",
       "hero.title": "Uyingizni tarakan, kandala va kemiruvchilardan tozalaymiz",
       "hero.sub": "1 yil kafolat bilan professional ishlov. Bolalar va uy hayvonlari uchun xavfsiz. Toshkent bo‘ylab bir soat ichida chiqamiz.",
@@ -221,6 +225,56 @@
     reveals.forEach((el) => io.observe(el));
   } else {
     reveals.forEach((el) => el.classList.add("in"));
+  }
+
+  /* ------------------------------------------------------------------
+     3D TILT (pointer-driven) — hero scene, service cards, gallery
+  ------------------------------------------------------------------ */
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  if (finePointer && !reduceMotion) {
+    document.querySelectorAll("[data-tilt]").forEach((el) => {
+      const max = parseFloat(el.getAttribute("data-tilt")) || 8;
+      let raf = 0;
+
+      const move = (e) => {
+        const r = el.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;   // -0.5 … 0.5
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          const rx = (py * -max).toFixed(2);
+          const ry = (px * max).toFixed(2);
+          el.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+        });
+      };
+      const reset = () => {
+        if (raf) cancelAnimationFrame(raf);
+        el.classList.remove("tilting");
+        el.style.transform = "";           // fall back to CSS resting pose
+      };
+
+      el.addEventListener("pointerenter", () => el.classList.add("tilting"));
+      el.addEventListener("pointermove", move);
+      el.addEventListener("pointerleave", reset);
+    });
+  }
+
+  /* ------------------------------------------------------------------
+     HERO PARALLAX — subtle scene shift on scroll
+  ------------------------------------------------------------------ */
+  const heroScene = document.querySelector(".hero-scene");
+  if (heroScene && !reduceMotion) {
+    let ticking = false;
+    const parallax = () => {
+      const y = window.scrollY;
+      if (y < 700) heroScene.style.setProperty("--py", (y * 0.06).toFixed(1) + "px");
+      ticking = false;
+    };
+    window.addEventListener("scroll", () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(parallax); }
+    }, { passive: true });
   }
 
   /* ------------------------------------------------------------------
